@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date: 2016-09-12
+  title: MyString
+  first_dish: MyString
+  second_dish: MyString
+  dessert: MyString
+
+two:
+  date: 2016-09-12
+  title: MyString
+  first_dish: MyString
+  second_dish: MyString
+  dessert: MyString
