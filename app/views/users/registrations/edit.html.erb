@@ -36,6 +36,16 @@
     <%= f.password_field :current_password, autocomplete: "off" %>
   </div>
 
+   <div class="field">
+    <%= f.label :phone %><br />
+    <%= f.text_field :phone, autofocus: true %>
+  </div>
+
+   <div class="field">
+    <%= f.label :address %><br />
+    <%= f.text_area :address, autofocus: true %>
+  </div>
+
   <div class="actions">
     <%= f.submit "Update" %>
   </div>
