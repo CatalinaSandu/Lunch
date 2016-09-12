@@ -2,14 +2,14 @@
 
 one:
   date: 2016-09-12
-  title: MyString
-  first_dish: MyString
-  second_dish: MyString
-  dessert: MyString
+  title: Meniul zilei
+  first_dish: Supa de pui
+  second_dish: Friptura de porc
+  dessert: clatite
 
 two:
   date: 2016-09-12
-  title: MyString
-  first_dish: MyString
-  second_dish: MyString
-  dessert: MyString
+  title: Meniu simplu
+  first_dish: Supa de legume
+  second_dish: Friptura de pui
+  dessert: inghetata
