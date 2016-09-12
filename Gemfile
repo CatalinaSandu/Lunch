@@ -23,7 +23,11 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'devise'
-
+gem 'grape'
+gem 'rack-cors', :require => 'rack/cors'
+gem 'grape-active_model_serializers'
+gem 'grape-swagger-rails'
+gem 'grape-swagger'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

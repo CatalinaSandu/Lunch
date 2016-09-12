@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :orders
   resources :menus
   root 'menus#index'
-
+  mount API::Base => "/"
+  mount GrapeSwaggerRails::Engine, at: "/documentation"
 
 end
