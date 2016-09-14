@@ -28,6 +28,10 @@ gem 'rack-cors', :require => 'rack/cors'
 gem 'grape-active_model_serializers'
 gem 'grape-swagger-rails'
 gem 'grape-swagger'
+gem 'bootstrap-sass', '~> 3.3', '>= 3.3.7'
+gem 'autoprefixer-rails'
+
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
