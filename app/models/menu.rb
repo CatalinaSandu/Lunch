@@ -1,5 +1,4 @@
 class Menu < ActiveRecord::Base
-  belongs_to :order
    validates :date, presence: true
    validates :title, presence: true,
                     length: { minimum: 5 }

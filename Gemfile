@@ -31,6 +31,9 @@ gem 'grape-swagger'
 gem 'bootstrap-sass', '~> 3.3', '>= 3.3.7'
 gem 'autoprefixer-rails'
 gem 'rails_admin'
+gem 'devise-async'
+gem 'delayed_job_active_record'
+gem "daemons"
 
 
 # Use ActiveModel has_secure_password

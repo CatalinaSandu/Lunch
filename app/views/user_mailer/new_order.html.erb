@@ -1,0 +1,24 @@
+<html>
+   <head>
+      <meta content = 'text/html; charset = UTF-8' http-equiv = 'Content-Type' />
+   </head>
+
+   <body>
+      <h1>Thank you for your order, <%= @order.user.name %></h1>
+      <p>
+         Your code is:
+         <b><%= @order.id %>-<%= @order.menu_id%></b><br>
+      </p>
+
+      <p>
+      You have ordered the following:
+      <br></br>
+      <b>First meal:</b> <%= @order.menu.first_dish %>
+      <br></br>
+      <b>Second meal:</b> <%= @order.menu.second_dish %>
+      <br></br>
+      <b>Dessert:</b> <%= @order.menu.dessert %>
+      <br></br>
+      </p>
+   </body>
+</html>
