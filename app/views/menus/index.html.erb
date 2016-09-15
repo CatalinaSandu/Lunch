@@ -1,4 +1,3 @@
-<p id="notice"><%= notice %></p>
 
 <h1>Listing Menus</h1>
 
@@ -16,21 +15,24 @@
 
   <tbody>
     <% @menus.each do |menu| %>
-      <tr>
-        <td><%= menu.date %></td>
-        <td><%= menu.title %></td>
-        <td><%= menu.first_dish %></td>
-        <td><%= menu.second_dish %></td>
-        <td><%= menu.dessert %></td>
-        <td><%= link_to 'Show', menu %></td>
-        <td><%= link_to 'Edit', edit_menu_path(menu) %></td>
-        <td><%= link_to 'Destroy', menu, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+    <tr>
+      <td><%= menu.date %></td>
+      <td><%= menu.title %></td>
+      <td><%= menu.first_dish %></td>
+      <td><%= menu.second_dish %></td>
+      <td><%= menu.dessert %></td>
+      <td><%= link_to 'Show', menu %></td>
+      <% if current_user.admin? %>
+      <td><%= link_to 'Edit', edit_menu_path(menu) %></td>
+      <td><%= link_to 'Destroy', menu, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <% end %>
+    </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
-
+<% if current_user.admin? %>
 <%= link_to 'New Menu', new_menu_path %>
+<% end %>
 <%= link_to 'New Order', new_order_path%>

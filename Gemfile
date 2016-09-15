@@ -30,6 +30,7 @@ gem 'grape-swagger-rails'
 gem 'grape-swagger'
 gem 'bootstrap-sass', '~> 3.3', '>= 3.3.7'
 gem 'autoprefixer-rails'
+gem 'rails_admin'
 
 
 # Use ActiveModel has_secure_password

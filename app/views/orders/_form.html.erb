@@ -15,11 +15,12 @@
   <%= f.label :menu_id %><br>
   <%=  f.select( :menu_id, Menu.where("DATE(date) = ?", Date.today).map {|a| [a.title, a.id]} ,  {prompt: "Please Choose"}) %>
 </div>
-
+<% if current_user.admin? %>
 <div class="field">
   <%= f.label :order_status %><br>
   <%= f.text_field :order_status %>
 </div>
+<% end %>
 <div class="actions">
   <%= f.submit %>
 </div>
