@@ -1,5 +1,4 @@
 class RegisterController < Devise::RegistrationsController
-
  def create
    super
    if @user.persisted?
@@ -7,12 +6,4 @@ class RegisterController < Devise::RegistrationsController
    end
  end
  private
-
-  def sign_up_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation,:phone,:address)
-  end
-
-  def account_update_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation, :current_password,:phone,:address)
-  end
 end
