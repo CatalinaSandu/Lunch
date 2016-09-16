@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class MenuTest < ActiveSupport::TestCase
+  fixtures :menus
   # test "the truth" do
   #   assert true
   # end
