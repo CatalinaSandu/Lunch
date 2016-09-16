@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   root 'menus#index'
 
   mount API::Base => "/"
-  mount GrapeSwaggerRails::Engine, at: "/documentation"
+  mount GrapeSwaggerRails::Engine, at: "/swagger"
 
 
 end
