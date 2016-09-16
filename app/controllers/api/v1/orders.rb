@@ -48,20 +48,20 @@ module API
 
 
 
-          desc "Return all orders"
-          get "", root: :orders do
-            Order.all
-          end
+          # desc "Return all orders"
+          # get "", root: :orders do
+          #   Order.all
+          # end
 
-          desc "Return a order"
-          params do
-            requires :id, type: String, desc: "ID of the
-            order"
-          end
+          # desc "Return a order"
+          # params do
+          #   requires :id, type: String, desc: "ID of the
+          #   order"
+          # end
 
-          get ":id", root: "order" do
-            Order.where(id: permitted_params[:id]).first!
-          end
+          # get ":id", root: "order" do
+          #   Order.where(id: permitted_params[:id]).first!
+          # end
 
           desc "Create new order"
           params do

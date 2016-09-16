@@ -7,25 +7,39 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <div class="navbar navbar-inverse navbar-fixed-left">
+    <a class="navbar-brand" href="#">LUNCH</a>
+    <ul class="nav navbar-nav">
+      <% if user_signed_in? %>
+      <li> <%= link_to "MENUS", root_path %></li>
+      <li> <%= link_to "#{current_user.email}" %></li>
+      <li class="active"><%= link_to "Log out", destroy_user_session_path, method: :delete%></li>
 
-  <div class="container">
+      <% else %>
+      <li><%= link_to "Log in", new_user_session_path %> </li>
+      <li><%= link_to "Sign up", new_user_registration_path%></li>
 
-    <% flash.each do |key, value| %>
-    <div class="alert alert-<%= key %> text-center"><%= value %></div>
-    <% end %>
-     <div>
-      <ul class="nav navbar-nav pull-right">
-        <% if user_signed_in? %>
-        <li> <%= link_to "#{current_user.email}" %></li>
-        <li class="active"><%= link_to "Log out", destroy_user_session_path, method: :delete%></li>
-        <% else %>
-        <li><%= link_to "Log in", new_user_session_path %> </li>
-        <li class="active"><%= link_to "Sign up", new_user_registration_path%></li>
-        <%end%>
-      </ul>
-    </div>
-
-    <%= yield %>
+      <%end%>
+    </ul>
   </div>
+  <div class="container">
+   <% flash.each do |key, value| %>
+   <div class="alert alert-<%= key %> text-center"><%= value %></div>
+   <% end %>
+ </div>
+</div>
+
+
+</div>
+<div class="containter">
+  <div class="row">
+
+
+
+    <div class="col-xs-9">
+      <%= yield %>
+    </div>
+  </div>
+</div>
 </body>
 </html>
