@@ -20,6 +20,7 @@ module API
         end
 
         post "sign_up" do
+
           User.create({
             name:params[:name],
             email:params[:email],
@@ -27,6 +28,8 @@ module API
             password_confirmation:params[:password_confirmation],
             phone:params[:phone],
             address:params[:address]})
+
+            {success_message: "User created"}
         end
 
         desc "Log in user"

@@ -34,6 +34,7 @@ gem 'rails_admin'
 gem 'devise-async'
 gem 'delayed_job_active_record'
 gem "daemons"
+gem "heroku"
 
 
 # Use ActiveModel has_secure_password
