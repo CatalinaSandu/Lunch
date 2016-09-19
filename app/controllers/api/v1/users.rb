@@ -63,6 +63,36 @@ module API
            end
          end
 
+
+         desc "Edit profile"
+         params do
+          requires :token, type: String
+          #requires :avatar, type: image
+          requires :name, type: String
+          requires :email, type: String
+          # requires :password, type: String
+          # requires :password_confirmation, type: String
+          # requires :current_password, type: String
+          requires :phone, type: String
+          requires :address, type: String
+          end
+
+          put 'edit' do
+            User.find_by_authentication_token(params[:token]).update({
+            name:params[:name],
+            email:params[:email],
+            # password:params[:password],
+            # password_confirmation:params[:password_confirmation],
+            # current_password:params[:current_password],
+            phone:params[:phone],
+            address:params[:address]})
+
+            {success_message: "Create profile"}
+
+
+          end
+
+
      end
 
    end
