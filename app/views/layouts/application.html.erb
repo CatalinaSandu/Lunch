@@ -11,9 +11,11 @@
     <a class="navbar-brand" href="#">LUNCH</a>
     <ul class="nav navbar-nav">
       <% if user_signed_in? %>
-      <li> <%= link_to "MENUS", root_path %></li>
+      <li class="round-image-50"><%= image_tag(current_user.avatar.url(:thumb)) %></li>
       <li> <%= link_to "#{current_user.email}" %></li>
-      <li class="active"><%= link_to "Log out", destroy_user_session_path, method: :delete%></li>
+      <li><%= link_to 'Edit Profile',edit_user_registration_path %></li>
+      <li><%= link_to "Log out", destroy_user_session_path, method: :delete%></li>
+
 
       <% else %>
       <li><%= link_to "Log in", new_user_session_path %> </li>
@@ -22,6 +24,8 @@
       <%end%>
     </ul>
   </div>
+
+
   <div class="container">
    <% flash.each do |key, value| %>
    <div class="alert alert-<%= key %> text-center"><%= value %></div>
