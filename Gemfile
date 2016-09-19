@@ -4,7 +4,8 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.4'
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+gem 'sqlite3-ruby', '1.2.5', group: :development
+gem 'pg', '0.18.1', group: :production
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -34,7 +35,6 @@ gem 'rails_admin'
 gem 'devise-async'
 gem 'delayed_job_active_record'
 gem "daemons"
-gem "heroku"
 
 
 # Use ActiveModel has_secure_password
