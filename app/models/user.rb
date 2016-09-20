@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
 
 
   before_save :ensure_authentication_token
+  before_save :set_expiration
 
   devise :database_authenticatable, :async, :registerable,
   :recoverable, :rememberable, :trackable, :validatable
@@ -22,6 +23,10 @@ class User < ActiveRecord::Base
     self.role ||= :admin
   end
 
+  def expired?
+    Time.zone.now >= self.expires_at
+  end
+
   def ensure_authentication_token
     if authentication_token.blank?
       self.authentication_token = generate_access_token
@@ -33,7 +38,13 @@ class User < ActiveRecord::Base
   def generate_access_token
     loop do
       token = Devise.friendly_token
+      set_expiration
       break token unless User.where(authentication_token: token).first
+
     end
+  end
+
+  def set_expiration
+    self.expires_at = Time.zone.now+30.minutes
   end
 end

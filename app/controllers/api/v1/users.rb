@@ -63,42 +63,73 @@ module API
        end
      end
 
-
-     desc "Edit profile"
+     desc "Status token"
      params do
       requires :token, type: String
-      requires :avatar, :type => Rack::Multipart::UploadedFile
-      requires :name, type: String
-      requires :email, type: String
-      requires :phone, type: String
-      requires :address, type: String
     end
 
-    put 'edit' do
-      avatar = params[:avatar]
+    get 'status' do
+      user = User.where(authentication_token: permitted_params[:token]).first!
+      if user.expired?
+        {status: 'invalid'}
+      else
+        {status: 'valid'}
 
-      attachment = {
-        :filename => avatar[:filename],
-        :type => avatar[:type],
-        :headers => avatar[:head],
-        :tempfile => avatar[:tempfile]
-      }
-
-      User.find_by_authentication_token(params[:token]).update({
-        avatar: ActionDispatch::Http::UploadedFile.new(attachment),
-        name:params[:name],
-        email:params[:email],
-        phone:params[:phone],
-        address:params[:address]})
-
-      {success_message: "Create profile"}
-
-
+      end
     end
 
 
+
+
+
+    desc "Profile"
+    params do
+      requires :token, type: String
+    end
+
+    get 'profile' do
+
+      user = User.where(authentication_token: permitted_params[:token]).first!
+      {name: user.name,
+        email: user.email,
+        address: user.address,
+        phone: user.phone}
+      end
+
+
+      desc "Edit profile"
+      params do
+        requires :token, type: String
+        requires :avatar, :type => Rack::Multipart::UploadedFile
+        requires :name, type: String
+        requires :email, type: String
+        requires :phone, type: String
+        requires :address, type: String
+      end
+
+      put 'edit' do
+        avatar = params[:avatar]
+
+        attachment = {
+          :filename => avatar[:filename],
+          :type => avatar[:type],
+          :headers => avatar[:head],
+          :tempfile => avatar[:tempfile]
+        }
+
+        User.find_by_authentication_token(params[:token]).update({
+          avatar: ActionDispatch::Http::UploadedFile.new(attachment),
+          name:params[:name],
+          email:params[:email],
+          phone:params[:phone],
+          address:params[:address]})
+
+        {success_message: "Create profile"}
+
+      end
+
+
+    end
   end
-
-end
 end
 end
