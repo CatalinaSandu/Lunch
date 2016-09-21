@@ -1,15 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  date: 2016-09-12
-  title: Meniul zilei
-  first_dish: Supa de pui
-  second_dish: Friptura de porc
-  dessert: clatite
+  title: MyString
+  date: 2016-09-21
+  restaurant_id: 
 
 two:
-  date: 2016-09-12
-  title: Meniu simplu
-  first_dish: Supa de legume
-  second_dish: Friptura de pui
-  dessert: inghetata
+  title: MyString
+  date: 2016-09-21
+  restaurant_id: 

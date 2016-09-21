@@ -1,0 +1,19 @@
+
+<p>
+  <strong>Dish type:</strong>
+  <%= @dish.dish_type %>
+</p>
+
+
+<p>
+  <strong>Dish title:</strong>
+  <%= @dish.dish_title %>
+</p>
+
+<p>
+  <strong>Menu:</strong>
+  <%= @dish.menu.title %>
+</p>
+
+<%= link_to 'Edit', edit_dish_path(@dish) %> |
+<%= link_to 'Back', dishes_path %>

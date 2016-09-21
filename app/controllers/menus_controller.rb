@@ -4,7 +4,7 @@ class MenusController < ApplicationController
   # GET /menus
   # GET /menus.json
   def index
-    @menus = Menu.all
+    @menus = Menu.includes(:dishes).all
   end
 
   # GET /menus/1
@@ -69,6 +69,6 @@ class MenusController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def menu_params
-      params.require(:menu).permit(:date, :title, :first_dish, :second_dish, :dessert)
+      params.require(:menu).permit(:title, :date, :restaurant_id)
     end
 end

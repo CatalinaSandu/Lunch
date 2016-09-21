@@ -1,13 +1,14 @@
 
-<h1>Listing Menus</h1>
+<h1>Menu for <%= DateTime.now.strftime('%d %B %Y')%></h1>
 
 <table>
   <thead>
     <tr>
-      <th>Date</th>
       <th>Title</th>
-      <th>First dish</th>
-      <th>Second dish</th>
+      <th>Date</th>
+      <th>Restaurant</th>
+      <th>First Dish</th>
+      <th>Second Dish</th>
       <th>Dessert</th>
       <th colspan="3"></th>
     </tr>
@@ -16,23 +17,25 @@
   <tbody>
     <% @menus.each do |menu| %>
     <tr>
-      <td><%= menu.date %></td>
       <td><%= menu.title %></td>
-      <td><%= menu.first_dish %></td>
-      <td><%= menu.second_dish %></td>
-      <td><%= menu.dessert %></td>
+      <td><%= menu.date %></td>
+      <td><%= menu.restaurant.name %></td>
+      <% menu.dishes.each do |d| %>
+      <td>
+       <% menu.dishes.select do |t| %>
+
+      </td>
+      <% end %>
       <td><%= link_to 'Show', menu %></td>
-      <% if current_user.admin? %>
       <td><%= link_to 'Edit', edit_menu_path(menu) %></td>
       <td><%= link_to 'Destroy', menu, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      <% end %>
     </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
-<% if current_user.admin? %>
+
 <%= link_to 'New Menu', new_menu_path %>
-<% end %>
-<%= link_to 'New Order', new_order_path%>
+<%= link_to 'New Restaurant', new_restaurant_path %>
+<%= link_to 'New Dish', new_dish_path %>

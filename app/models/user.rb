@@ -28,7 +28,7 @@ class User < ActiveRecord::Base
   end
 
   def ensure_authentication_token
-    if authentication_token.blank?
+    if authentication_token.blank? || expired?
       self.authentication_token = generate_access_token
     end
   end

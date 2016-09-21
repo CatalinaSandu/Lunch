@@ -1,0 +1,33 @@
+<%= form_for(@dish) do |f| %>
+<% if @dish.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(@dish.errors.count, "error") %> prohibited this dish from being saved:</h2>
+
+  <ul>
+    <% @dish.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+<div class="field">
+  <%= f.label :dish_type %><br>
+  <%= f.select :dish_type, Dish.dish_types.keys.to_a %>
+</div>
+
+<div class="field">
+  <%= f.label :dish_title %><br>
+  <%= f.text_field :dish_title %>
+</div>
+
+<div class="field">
+  <%= f.label :menu_id %><br>
+  <%= f.select :menu_id, options_from_collection_for_select(Menu.all, :id, :title),
+  {prompt: "Choose one"}%>
+</div>
+
+<div class="actions">
+  <%= f.submit %>
+</div>
+<% end %>

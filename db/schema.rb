@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160920092907) do
+ActiveRecord::Schema.define(version: 20160921094037) do
 
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer  "priority",   default: 0, null: false
@@ -29,15 +29,25 @@ ActiveRecord::Schema.define(version: 20160920092907) do
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority"
 
-  create_table "menus", force: :cascade do |t|
-    t.date     "date"
-    t.string   "title"
-    t.string   "first_dish"
-    t.string   "second_dish"
-    t.string   "dessert"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+  create_table "dishes", force: :cascade do |t|
+    t.string   "dish_title"
+    t.integer  "dish_type"
+    t.integer  "menu_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
+
+  add_index "dishes", ["menu_id"], name: "index_dishes_on_menu_id"
+
+  create_table "menus", force: :cascade do |t|
+    t.string   "title"
+    t.date     "date"
+    t.integer  "restaurant_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "menus", ["restaurant_id"], name: "index_menus_on_restaurant_id"
 
   create_table "orders", force: :cascade do |t|
     t.string   "order_status"
@@ -50,6 +60,12 @@ ActiveRecord::Schema.define(version: 20160920092907) do
 
   add_index "orders", ["menu_id"], name: "index_orders_on_menu_id"
   add_index "orders", ["user_id"], name: "index_orders_on_user_id"
+
+  create_table "restaurants", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

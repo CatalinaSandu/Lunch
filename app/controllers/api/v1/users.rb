@@ -69,6 +69,7 @@ module API
     end
 
     get 'status' do
+
       user = User.where(authentication_token: permitted_params[:token]).first!
       if user.expired?
         {status: 'invalid'}
@@ -77,10 +78,6 @@ module API
 
       end
     end
-
-
-
-
 
     desc "Profile"
     params do
