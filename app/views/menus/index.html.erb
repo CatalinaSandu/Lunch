@@ -7,9 +7,6 @@
     <th>Date</th>
       <th>Title</th>
       <th>Restaurant</th>
-      <th>First Dish</th>
-      <th>Second Dish</th>
-      <th>Dessert</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -20,21 +17,20 @@
       <td><%= menu.date %></td>
       <td><%= menu.title %></td>
       <td><%= menu.restaurant.name %></td>
-      <% menu.dishes.each do |d| %>
-      <td>
-         <%= d.dish_title %>
-      </td>
-      <% end %>
-      <td><%= link_to 'Show', menu %></td>
+
+      <td><%= link_to 'Show dishes', dishes_path(menu_id: menu.id) %></td>
+      <% if current_user.admin? %>
       <td><%= link_to 'Edit', edit_menu_path(menu) %></td>
       <td><%= link_to 'Destroy', menu, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <% end %>
     </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
-
+<% if current_user.admin? %>
 <%= link_to 'New Menu', new_menu_path %>||
 <%= link_to 'New Restaurant', new_restaurant_path %>||
 <%= link_to 'New Dish', new_dish_path %>
+<% end %>

@@ -1,11 +1,11 @@
 <p>
  <%= image_tag(@dish.picture.url(:medium)) %>
 </p>
+
 <p>
   <strong>Dish type:</strong>
   <%= @dish.dish_type %>
 </p>
-
 
 <p>
   <strong>Dish title:</strong>
@@ -16,6 +16,7 @@
   <strong>Menu:</strong>
   <%= @dish.menu.title %>
 </p>
-
+<% if current_user.admin? %>
 <%= link_to 'Edit', edit_dish_path(@dish) %> |
 <%= link_to 'Back', dishes_path %>
+<% end %>
