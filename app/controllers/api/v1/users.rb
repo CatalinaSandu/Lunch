@@ -87,10 +87,12 @@ module API
     get 'profile' do
 
       user = User.where(authentication_token: permitted_params[:token]).first!
-      {name: user.name,
+      { avatar: user.avatar,
+        name: user.name,
         email: user.email,
         address: user.address,
         phone: user.phone}
+
       end
 
 

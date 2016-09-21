@@ -3,6 +3,7 @@
 <table>
   <thead>
     <tr>
+      <th>Image</th>
       <th>Dish type</th>
       <th>Dish title</th>
       <th>Menu</th>
@@ -13,6 +14,7 @@
   <tbody>
     <% @dishes.each do |dish| %>
     <tr>
+      <td class="round-image-50"><%= image_tag(dish.picture.url(:thumb)) %></td>
       <td><%= dish.dish_type %></td>
       <td><%= dish.dish_title %></td>
       <td><%= dish.menu.title %></td>

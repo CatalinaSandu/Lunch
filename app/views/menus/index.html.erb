@@ -4,8 +4,8 @@
 <table>
   <thead>
     <tr>
+    <th>Date</th>
       <th>Title</th>
-      <th>Date</th>
       <th>Restaurant</th>
       <th>First Dish</th>
       <th>Second Dish</th>
@@ -17,13 +17,12 @@
   <tbody>
     <% @menus.each do |menu| %>
     <tr>
-      <td><%= menu.title %></td>
       <td><%= menu.date %></td>
+      <td><%= menu.title %></td>
       <td><%= menu.restaurant.name %></td>
       <% menu.dishes.each do |d| %>
       <td>
-       <% menu.dishes.select do |t| %>
-
+         <%= d.dish_title %>
       </td>
       <% end %>
       <td><%= link_to 'Show', menu %></td>
@@ -36,6 +35,6 @@
 
 <br>
 
-<%= link_to 'New Menu', new_menu_path %>
-<%= link_to 'New Restaurant', new_restaurant_path %>
+<%= link_to 'New Menu', new_menu_path %>||
+<%= link_to 'New Restaurant', new_restaurant_path %>||
 <%= link_to 'New Dish', new_dish_path %>

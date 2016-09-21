@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160921094037) do
+ActiveRecord::Schema.define(version: 20160921125126) do
 
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer  "priority",   default: 0, null: false
@@ -33,8 +33,12 @@ ActiveRecord::Schema.define(version: 20160921094037) do
     t.string   "dish_title"
     t.integer  "dish_type"
     t.integer  "menu_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.string   "picture_file_name"
+    t.string   "picture_content_type"
+    t.integer  "picture_file_size"
+    t.datetime "picture_updated_at"
   end
 
   add_index "dishes", ["menu_id"], name: "index_dishes_on_menu_id"

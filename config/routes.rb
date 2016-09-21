@@ -7,7 +7,6 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => { :registrations => "register" }
   resources :users
   resources :orders
-  resources :restaurants
 
   root 'menus#index'
 
