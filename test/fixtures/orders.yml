@@ -1,7 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  order_status: Trimis
+  order_status: MyString
+  menu_id: 
+  user: 
 
 two:
-  order_status: In asteptare
+  order_status: MyString
+  menu_id: 
+  user: 

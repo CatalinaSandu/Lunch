@@ -1,12 +1,19 @@
-<p>
-  <strong>Menu:</strong>
-  <%= @order.menu.title %>
- </p>
+<p id="notice"><%= notice %></p>
+
 <p>
   <strong>Order status:</strong>
   <%= @order.order_status %>
 </p>
-<% if current_user.admin? %>
+
+<p>
+  <strong>Menu:</strong>
+  <%= @order.menu %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @order.user %>
+</p>
+
 <%= link_to 'Edit', edit_order_path(@order) %> |
-<% end %>
 <%= link_to 'Back', orders_path %>
