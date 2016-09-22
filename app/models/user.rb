@@ -45,6 +45,6 @@ class User < ActiveRecord::Base
   end
 
   def set_expiration
-    self.expires_at = Time.zone.now+30.minutes
+    self.expires_at = Time.zone.now+1.day
   end
 end

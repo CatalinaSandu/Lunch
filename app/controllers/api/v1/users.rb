@@ -85,8 +85,7 @@ module API
     end
 
     get 'profile' do
-
-      user = User.where(authentication_token: permitted_params[:token]).first!
+      user = User.find_by_authentication_token(permitted_params[:token])
       { avatar: user.avatar,
         name: user.name,
         email: user.email,
@@ -99,34 +98,38 @@ module API
       desc "Edit profile"
       params do
         requires :token, type: String
-        requires :avatar, :type => Rack::Multipart::UploadedFile
-        requires :name, type: String
-        requires :email, type: String
-        requires :phone, type: String
-        requires :address, type: String
+        optional :avatar, :type => Rack::Multipart::UploadedFile
+        optional :name, type: String
+        #optional :email, type: String
+        optional :phone, type: String
+        optional :address, type: String
       end
+
 
       put 'edit' do
-        avatar = params[:avatar]
+        user = User.find_by_authentication_token(permitted_params[:token])
+        if params[:avatar]
 
-        attachment = {
-          :filename => avatar[:filename],
-          :type => avatar[:type],
-          :headers => avatar[:head],
-          :tempfile => avatar[:tempfile]
-        }
+          avatar = params[:avatar]
 
-        User.find_by_authentication_token(params[:token]).update({
-          avatar: ActionDispatch::Http::UploadedFile.new(attachment),
-          name:params[:name],
-          email:params[:email],
-          phone:params[:phone],
-          address:params[:address]})
+          attachment = {
+            :filename => avatar[:filename],
+            :type => avatar[:type],
+            :headers => avatar[:head],
+            :tempfile => avatar[:tempfile]
+          }
+          user.avatar = ActionDispatch::Http::UploadedFile.new(attachment)
 
-        {success_message: "Create profile"}
+        end
+
+        permitted_params.delete :token
+        permitted_params.delete :avatar
+
+        user.update_attributes(permitted_params.to_h)
+
+        {success_message: "Updated profile"}
 
       end
-
 
     end
   end
