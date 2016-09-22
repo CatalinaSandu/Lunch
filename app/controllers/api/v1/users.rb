@@ -86,7 +86,7 @@ module API
 
     get 'profile' do
       user = User.find_by_authentication_token(permitted_params[:token])
-      { avatar: user.avatar,
+      { avatar: "http://#{request.host_with_port}#{user.avatar.url}",
         name: user.name,
         email: user.email,
         address: user.address,
