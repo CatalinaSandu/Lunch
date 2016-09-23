@@ -38,10 +38,10 @@ module API
           else
             { order_id: order.id,
               title: menu.title,
-              first_dish: menu.first_dish,
-              second_dish: menu.second_dish,
-              dessert: menu.dessert,
-              order_status: order.order_status}
+              first_dish: menu.dishes.first.dish_title,
+              second_dish: menu.dishes.second.dish_title,
+              dessert: menu.dishes.last.dish_title,
+              order_status: "Send"}
             end
 
           end
