@@ -67,11 +67,18 @@ module API
           params do
             requires :menu_id, type: String
             requires :token, type: String
+            requires :dish1_id, type: Integer
+            optional :dish2_id, type: Integer
+            optional :dessert_id, type: Integer
           end
 
           post "new" do
-            menu_id = params[:menu_id]
             token = params[:token]
+            menu_id = params[:menu_id]
+            dish1_id = params[:dish1_id]
+            dish2_id = params[:dish2_id]
+            dessert_id = params[:dessert_id]
+
             begin
               user = User.where(authentication_token: token).first!
             rescue
@@ -82,19 +89,29 @@ module API
             rescue
               menu = nil
             end
+             begin
+              order = Order.where(dish1_id: dish1_id, dish2_id: dish2_id, dessert_id: dessert_id).first!
+            rescue
+              order = nil
+            end
             if user.nil?
               {error_code: 401, error_message:"No user found"}
             elsif token.blank?
               {error_code: 401, error_message:"Not authorized"}
             elsif menu.nil?
-              {error_code: 401, error_message:"No menu found"}
+              {error_code: 401, error_message:"No menu!!"}
             elsif menu_id.blank?
               {error_code: 401, error_message:"No menu choosen"}
             else
               order = Order.create!({
                 menu_id: menu_id,
                 user_id: user.id,
+                dish1_id: dish1_id,
+                dish2_id: dish2_id,
+                dessert_id: dessert_id,
                 order_status: "Pending"})
+
+                {success_message: "Order created"}
             end
           end
 

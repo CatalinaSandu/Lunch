@@ -12,17 +12,37 @@
   <% end %>
 
   <div class="field">
+    <%= f.label :menu_id %><br>
+   <%=  f.select( :menu_id, Menu.where("DATE(date) = ?", Date.today).map {|a| [a.title, a.id]}, {prompt: "Choose one"})  %>
+  </div>
+
+   <div class="field">
+    <%= f.label :dish1_id %><br>
+    <%= f.select :dish1_id, options_from_collection_for_select(Dish.all, :id, :dish_title),
+     {prompt: "Choose one"}%>
+  </div>
+
+  <div class="field">
+    <%= f.label :dish2_id %><br>
+     <%= f.select :dish2_id, options_from_collection_for_select(Dish.all, :id, :dish_title),
+  {prompt: "Choose one"}%>
+  </div>
+
+  <div class="field">
+    <%= f.label :dessert_id %><br>
+     <%= f.select :dessert_id, options_from_collection_for_select(Dish.all, :id, :dish_title),
+  {prompt: "Choose one"}%>
+  </div>
+
+  <div class="field">
     <%= f.label :order_status %><br>
     <%= f.text_field :order_status %>
   </div>
   <div class="field">
-    <%= f.label :menu_id %><br>
-    <%= f.text_field :menu_id %>
+    <%= f.label :rating %><br>
+    <%= f.number_field :rating %>
   </div>
-  <div class="field">
-    <%= f.label :user %><br>
-    <%= f.text_field :user %>
-  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>

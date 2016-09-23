@@ -1,19 +1,35 @@
 <p id="notice"><%= notice %></p>
 
 <p>
+  <strong>Menu:</strong>
+  <%= @order.menu.title %>
+</p>
+
+<p>
+  <strong>Dish1:</strong>
+  <%= @order.dish1_id %>
+</p>
+
+<p>
+  <strong>Dish2:</strong>
+  <%= @order.dish2_id %>
+</p>
+
+<p>
+  <strong>Dessert:</strong>
+  <%= @order.dessert_id %>
+</p>
+
+<p>
   <strong>Order status:</strong>
   <%= @order.order_status %>
 </p>
 
 <p>
-  <strong>Menu:</strong>
-  <%= @order.menu %>
+  <strong>Rating:</strong>
+  <%= @order.rating %>
 </p>
 
-<p>
-  <strong>User:</strong>
-  <%= @order.user %>
-</p>
 
 <%= link_to 'Edit', edit_order_path(@order) %> |
 <%= link_to 'Back', orders_path %>
