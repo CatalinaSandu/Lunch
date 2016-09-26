@@ -1,48 +1,49 @@
 <%= form_for(@order) do |f| %>
-  <% if @order.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@order.errors.count, "error") %> prohibited this order from being saved:</h2>
+<% if @order.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(@order.errors.count, "error") %> prohibited this order from being saved:</h2>
 
-      <ul>
-      <% @order.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <ul>
+    <% @order.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
 
-  <div class="field">
-    <%= f.label :menu_id %><br>
-   <%=  f.collection_select :menu_id, @menus, :id, :title  %>
-  </div>
+<div class="field">
+  <%= f.label :menu_id %><br>
+  <%=  f.collection_select :menu_id, @menus, :id, :title  %>
+</div>
 
-   <div class="field">
-    <%= f.label :dish1_id %><br>
-    <%= f.collection_select :dish1_id, @dishes.select {|d| d.dish_type == 'First'}, :id, :dish_title %>
-  </div>
+<div class="field">
+  <%= f.label :dish1_id %><br>
+  <%= f.collection_select :dish1_id, @dishes.select {|d| d.dish_type == 'First'}, :id, :dish_title %>
+</div>
 
-  <div class="field">
-    <%= f.label :dish2_id %><br>
-     <%= f.collection_select :dish2_id, @dishes.select {|d| d.dish_type == 'Second'}, :id, :dish_title %>
-  </div>
+<div class="field">
+  <%= f.label :dish2_id %><br>
+  <%= f.collection_select :dish2_id, @dishes.select {|d| d.dish_type == 'Second'}, :id, :dish_title %>
+</div>
 
-  <div class="field">
-    <%= f.label :dessert_id %><br>
-      <%= f.collection_select :dessert_id, @dishes.select {|d| d.dish_type == 'Dessert'}, :id, :dish_title %>
-  </div>
+<div class="field">
+  <%= f.label :dessert_id %><br>
+  <%= f.collection_select :dessert_id, @dishes.select {|d| d.dish_type == 'Dessert'}, :id, :dish_title %>
+</div>
+<% if current_user.admin? %>
+<div class="field">
+  <%= f.label :order_status %><br>
+  <%= f.select :order_status, ["Pending", "Send"] %>
+</div>
+<div class="field">
+  <%= f.label :rating %><br>
+  <%= f.number_field :rating %>
+</div>
+<% end %>
 
-  <div class="field">
-    <%= f.label :order_status %><br>
-    <%= f.select :order_status, ["Pending", "Send"] %>
-  </div>
-  <div class="field">
-    <%= f.label :rating %><br>
-    <%= f.number_field :rating %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+<div class="actions">
+  <%= f.submit %>
+</div>
 <% end %>
 
 <script>

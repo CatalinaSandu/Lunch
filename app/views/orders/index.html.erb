@@ -5,29 +5,31 @@
 <table>
   <thead>
     <tr>
-      <th>Order status</th>
-      <th>Rating</th>
+      <th>Menu</th>
       <th>Dish1</th>
       <th>Dish2</th>
       <th>Dessert</th>
-      <th>Menu</th>
+      <th>Order status</th>
+      <th>Rating</th>
       <th colspan="3"></th>
     </tr>
   </thead>
 
   <tbody>
     <% @orders.each do |order| %>
-      <tr>
-        <td><%= order.order_status %></td>
-        <td><%= order.rating %></td>
-        <td><%= order.dish1_id %></td>
-        <td><%= order.dish2_id %></td>
-        <td><%= order.dessert_id %></td>
-        <td><%= order.menu.title %></td>
-        <td><%= link_to 'Show', order %></td>
-        <td><%= link_to 'Edit', edit_order_path(order) %></td>
-        <td><%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+    <tr>
+      <td><%= order.menu.title %></td>
+      <td><%= order.dish1_title %></td>
+      <td><%= order.dish2_title %></td>
+      <td><%= order.dessert_title %></td>
+      <td><%= order.order_status %></td>
+      <td><%= order.rating %></td>
+      <% if current_user.admin? %>
+      <td><%= link_to 'Show', order %></td>
+      <td><%= link_to 'Edit', edit_order_path(order) %></td>
+      <td><%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <% end %>
+    </tr>
     <% end %>
   </tbody>
 </table>

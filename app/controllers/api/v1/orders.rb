@@ -48,10 +48,10 @@ module API
 
 
 
-          # desc "Return all orders"
-          # get "", root: :orders do
-          #   Order.all
-          # end
+          desc "Return all orders"
+          get "history" do
+            Order.all
+          end
 
           # desc "Return a order"
           # params do
@@ -150,26 +150,26 @@ module API
             end
           end
 
-          desc "history order"
-          params do
-            requires :token, type: String
-          end
+          # desc "history order"
+          # params do
+          #   requires :token, type: String
+          # end
 
-          get "history" do
+          # get "history" do
 
-            token = params[:token]
-            begin
-              user = User.find_by_authentication_token(params[:token])
-            rescue
-              user = nil
-            end
-            if token.blank?
-              {error_code: 401, error_message:"Not authorized."}
-            else
-              order = Order.where(user_id: user.id)
+          #   token = params[:token]
+          #   begin
+          #     user = User.find_by_authentication_token(params[:token])
+          #   rescue
+          #     user = nil
+          #   end
+          #   if token.blank?
+          #     {error_code: 401, error_message:"Not authorized."}
+          #   else
+          #     order = Order.where(user_id: user.id)
 
-            end
-          end
+          #   end
+          # end
         end
       end
     end

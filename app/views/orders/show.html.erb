@@ -30,6 +30,7 @@
   <%= @order.rating %>
 </p>
 
-
+<% if current_user.admin? %>
 <%= link_to 'Edit', edit_order_path(@order) %> |
+<% end %>
 <%= link_to 'Back', orders_path %>
