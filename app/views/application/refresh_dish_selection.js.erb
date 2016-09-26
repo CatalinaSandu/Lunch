@@ -1,0 +1,3 @@
+$('#order_dish1_id').html("<%= escape_javascript(options_for_select @dishes.select { |d| d.dish_type == 'First' }.map { |d| [d.dish_title, d.id] }) %>")
+$('#order_dish2_id').html("<%= escape_javascript(options_for_select @dishes.select { |d| d.dish_type == 'Second' }.map { |d| [d.dish_title, d.id] }) %>")
+$('#order_dessert_id').html("<%= escape_javascript(options_for_select @dishes.select { |d| d.dish_type == 'Dessert' }.map { |d| [d.dish_title, d.id] }) %>")

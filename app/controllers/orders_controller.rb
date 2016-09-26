@@ -15,10 +15,16 @@ class OrdersController < ApplicationController
   # GET /orders/new
   def new
     @order = Order.new
+
+    @menus = Menu.where("DATE(date) = ?", Date.today)
+    @dishes = Dish.where(menu_id: @menus.first.id) if @menus.first
+
   end
 
   # GET /orders/1/edit
   def edit
+    @menus = Menu.where("DATE(date) = ?", Date.today)
+    @dishes = Dish.where(menu_id: @menus.first.id) if @menus.first
   end
 
   # POST /orders

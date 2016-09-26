@@ -13,5 +13,6 @@ Rails.application.routes.draw do
   mount API::Base => "/"
   mount GrapeSwaggerRails::Engine, at: "/swagger"
 
+  get '/application/refresh_dish_selection', as: 'refresh_dish_selection'
 
 end

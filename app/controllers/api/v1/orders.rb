@@ -89,7 +89,7 @@ module API
             rescue
               menu = nil
             end
-             begin
+            begin
               order = Order.where(dish1_id: dish1_id, dish2_id: dish2_id, dessert_id: dessert_id).first!
             rescue
               order = nil
@@ -111,45 +111,65 @@ module API
                 dessert_id: dessert_id,
                 order_status: "Pending"})
 
-                {success_message: "Order created"}
+              {success_message: "Order created"}
             end
           end
 
 
-        desc "create rating"
-        params do
-          requires :rating, type: Integer
-          requires :order_id, type: String
-          requires :token, type: String
-        end
+          desc "create rating"
+          params do
+            requires :rating, type: Integer
+            requires :order_id, type: String
+            requires :token, type: String
+          end
 
-        post "rating" do
-          rating = params[:rating]
-          order_id = params[:order_id]
-          token = params[:token]
-          begin
-            user = User.where(authentication_token: token).first!
-          rescue
-            user = nil
+          post "rating" do
+            rating = params[:rating]
+            order_id = params[:order_id]
+            token = params[:token]
+            begin
+              user = User.where(authentication_token: token).first!
+            rescue
+              user = nil
+            end
+            begin
+              order = Order.where(id: order_id).first!
+            rescue
+              order = nil
+            end
+            if token.blank?
+              {error_code: 401, error_message:"Not authorized."}
+            elsif order_id.blank?
+              {error_code: 401, error_message:"No order choosen."}
+            elsif user.nil?
+              {error_code: 401, error_message:"No user found"}
+            else
+              order.rating = rating
+              order.save
+              {success_message: "Rating save"}
+            end
           end
-          begin
-            order = Order.where(id: order_id).first!
-          rescue
-            order = nil
-          end
-          if token.blank?
-            {error_code: 401, error_message:"Not authorized."}
-          elsif order_id.blank?
-            {error_code: 401, error_message:"No order choosen."}
-          elsif user.nil?
-            {error_code: 401, error_message:"No user found"}
-          else
-            order.rating = rating
-            order.save
-            {success_message: "Rating save"}
-          end
-        end
 
+          desc "history order"
+          params do
+            requires :token, type: String
+          end
+
+          get "history" do
+
+            token = params[:token]
+            begin
+              user = User.find_by_authentication_token(params[:token])
+            rescue
+              user = nil
+            end
+            if token.blank?
+              {error_code: 401, error_message:"Not authorized."}
+            else
+              order = Order.where(user_id: user.id)
+
+            end
+          end
         end
       end
     end

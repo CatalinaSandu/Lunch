@@ -13,30 +13,27 @@
 
   <div class="field">
     <%= f.label :menu_id %><br>
-   <%=  f.select( :menu_id, Menu.where("DATE(date) = ?", Date.today).map {|a| [a.title, a.id]}, {prompt: "Choose one"})  %>
+   <%=  f.collection_select :menu_id, @menus, :id, :title  %>
   </div>
 
    <div class="field">
     <%= f.label :dish1_id %><br>
-    <%= f.select :dish1_id, options_from_collection_for_select(Dish.all, :id, :dish_title),
-     {prompt: "Choose one"}%>
+    <%= f.collection_select :dish1_id, @dishes.select {|d| d.dish_type == 'First'}, :id, :dish_title %>
   </div>
 
   <div class="field">
     <%= f.label :dish2_id %><br>
-     <%= f.select :dish2_id, options_from_collection_for_select(Dish.all, :id, :dish_title),
-  {prompt: "Choose one"}%>
+     <%= f.collection_select :dish2_id, @dishes.select {|d| d.dish_type == 'Second'}, :id, :dish_title %>
   </div>
 
   <div class="field">
     <%= f.label :dessert_id %><br>
-     <%= f.select :dessert_id, options_from_collection_for_select(Dish.all, :id, :dish_title),
-  {prompt: "Choose one"}%>
+      <%= f.collection_select :dessert_id, @dishes.select {|d| d.dish_type == 'Dessert'}, :id, :dish_title %>
   </div>
 
   <div class="field">
     <%= f.label :order_status %><br>
-    <%= f.text_field :order_status %>
+    <%= f.select :order_status, ["Pending", "Send"] %>
   </div>
   <div class="field">
     <%= f.label :rating %><br>
@@ -47,3 +44,17 @@
     <%= f.submit %>
   </div>
 <% end %>
+
+<script>
+  $(document).ready(function() {
+    $('#order_menu_id').change(function() {
+      $.ajax({
+        url: "<%= refresh_dish_selection_path %>",
+        data: {
+          menu_id: $('#order_menu_id').val()
+        },
+        dataType: "script"
+      });
+    });
+  });
+</script>
