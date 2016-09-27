@@ -8,16 +8,18 @@ module API
         desc "Return all menus"
         params do
           requires :token, type: String
+          requires :date, type: Date
         end
         get "", root: :menus do
           token = params[:token]
+          date = params[:date]
           begin
             user = User.where(authentication_token: token).first!
           rescue
             user = nil
           end
           if user
-            menus = Menu.where("DATE(date) = ?", Date.today)
+            menus = Menu.where("DATE(date) = ?", date)
           #   menu_array = []
           #   menus.each do |m|
           #   menu_array <<

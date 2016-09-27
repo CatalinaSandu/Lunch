@@ -37,6 +37,7 @@ gem 'delayed_job_active_record'
 gem "daemons"
 gem "paperclip", "~> 5.0.0"
 gem 'hashie-forbidden_attributes'
+gem 'launchy', '~> 2.4', '>= 2.4.3'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -48,6 +49,11 @@ gem 'hashie-forbidden_attributes'
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
+  gem 'cucumber-rails', :require => false
+  gem 'rspec-rails', '~> 3.5', '>= 3.5.2'
+  gem 'webrat', '~> 0.7.3'
+  # database_cleaner is not required, but highly recommended
+  gem 'database_cleaner'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
 end
