@@ -111,6 +111,8 @@ module API
                 dessert_id: dessert_id,
                 order_status: "Pending"})
 
+              UserMailer.delay.new_order(order)
+
               {success_message: "Order created"}
             end
           end

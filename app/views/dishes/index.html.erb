@@ -1,6 +1,7 @@
+<div class="container">
 <h1>Listing Dishes</h1>
 
-<table>
+<table class="table table-striped">
   <thead>
     <tr>
       <th>Image</th>
@@ -30,6 +31,7 @@
 
 <br>
 <% if current_user.admin? %>
-<%= link_to 'New Dish', new_dish_path %>
+<%= link_to 'New Dish', new_dish_path, class: "btn btn-default" %>
 <% end %>
-<%= link_to 'Menus', menus_path %>
+<%= link_to 'Menus', menus_path, class: "btn btn-default" %>
+</div>

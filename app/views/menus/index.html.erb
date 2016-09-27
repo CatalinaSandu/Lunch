@@ -1,7 +1,7 @@
+<div class="container">
+<h1 class="text-info">Menu for <%= DateTime.now.strftime('%d %B %Y')%></h1>
 
-<h1>Menu for <%= DateTime.now.strftime('%d %B %Y')%></h1>
-
-<table>
+<table class="table table-striped">
   <thead>
     <tr>
     <th>Date</th>
@@ -18,10 +18,10 @@
       <td><%= menu.title %></td>
       <td><%= menu.restaurant.name %></td>
 
-      <td><%= link_to 'Show dishes', dishes_path(menu_id: menu.id) %></td>
+      <td><%= link_to 'Show dishes', dishes_path(menu_id: menu.id), class: "btn btn-default btn-sm" %></td>
       <% if current_user.admin? %>
-      <td><%= link_to 'Edit', edit_menu_path(menu) %></td>
-      <td><%= link_to 'Destroy', menu, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <td><%= link_to 'Edit', edit_menu_path(menu), class: "btn btn-default btn-sm"%></td>
+      <td><%= link_to 'Destroy', menu, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-default btn-sm" %></td>
     <% end %>
     </tr>
     <% end %>
@@ -30,9 +30,9 @@
 
 <br>
 <% if current_user.admin? %>
-<%= link_to 'New Menu', new_menu_path %>||
-<%= link_to 'New Restaurant', new_restaurant_path %>||
-<%= link_to 'New Dish', new_dish_path %>||
+<%= link_to 'New Menu', new_menu_path, class: "btn btn-default" %>
+<%= link_to 'New Restaurant', new_restaurant_path, class: "btn btn-default" %>
+<%= link_to 'New Dish', new_dish_path, class: "btn btn-default" %>
 <% end %>
-<%= link_to 'New Order', new_order_path %>
-
+<%= link_to 'New Order', new_order_path, class: "btn btn-default" %>
+</div>

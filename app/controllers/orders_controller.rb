@@ -31,9 +31,11 @@ class OrdersController < ApplicationController
   # POST /orders.json
   def create
     @order = Order.new(order_params)
+     @order.user_id = current_user.id
 
     respond_to do |format|
       if @order.save
+        UserMailer.delay.new_order(@order)
         format.html { redirect_to @order, notice: 'Order was successfully created.' }
         format.json { render :show, status: :created, location: @order }
       else
@@ -75,6 +77,6 @@ class OrdersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
-      params.require(:order).permit(:order_status, :rating, :dish1_id, :dish2_id, :dessert_id, :menu_id)
+      params.require(:order).permit(:order_status, :order_code, :rating, :dish1_id, :dish2_id, :dessert_id, :menu_id, :user_id, :name, :email, :phone, :address)
     end
 end

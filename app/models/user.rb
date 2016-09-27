@@ -5,7 +5,6 @@ class User < ActiveRecord::Base
   enum role: [:user, :admin]
   after_initialize :set_default_role, :if => :new_record?
 
-
   before_save :ensure_authentication_token
   before_save :set_expiration
 

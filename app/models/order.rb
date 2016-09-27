@@ -1,5 +1,6 @@
 class Order < ActiveRecord::Base
   belongs_to :menu
+  belongs_to :user
 
   belongs_to :dish, foreign_key: 'dish1_id'
   belongs_to :dish, foreign_key: 'dish2_id'

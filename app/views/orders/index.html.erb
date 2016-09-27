@@ -1,8 +1,8 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
 
 <h1>Listing Orders</h1>
 
-<table>
+<table class="table table-striped">
   <thead>
     <tr>
       <th>Menu</th>
@@ -10,7 +10,6 @@
       <th>Dish2</th>
       <th>Dessert</th>
       <th>Order status</th>
-      <th>Rating</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -23,11 +22,10 @@
       <td><%= order.dish2_title %></td>
       <td><%= order.dessert_title %></td>
       <td><%= order.order_status %></td>
-      <td><%= order.rating %></td>
-      <% if current_user.admin? %>
-      <td><%= link_to 'Show', order %></td>
-      <td><%= link_to 'Edit', edit_order_path(order) %></td>
-      <td><%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+       <% if current_user.admin? %>
+      <td><%= link_to 'Show', order, class: "btn btn-default btn-sm"%></td>
+      <td><%= link_to 'Edit', edit_order_path(order), class: "btn btn-default btn-sm" %></td>
+      <td><%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-default btn-sm" %></td>
       <% end %>
     </tr>
     <% end %>
@@ -36,4 +34,5 @@
 
 <br>
 
-<%= link_to 'New Order', new_order_path %>
+<%= link_to 'New Order', new_order_path, class: "btn btn-default" %>
+</div>
