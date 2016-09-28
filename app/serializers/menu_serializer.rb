@@ -3,3 +3,6 @@ class MenuSerializer < ActiveModel::Serializer
   has_one :restaurant
   has_many :dishes
 end
+
+
+
