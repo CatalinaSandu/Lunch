@@ -30,9 +30,10 @@
 </table>
 
 <br>
+
+<%= link_to 'Menus', menus_path, class: "btn btn-default" %>
 <% if current_user.admin? %>
 <%= link_to 'New Dish', new_dish_path, class: "btn btn-default" %>
 <% end %>
-<%= link_to 'Menus', menus_path, class: "btn btn-default" %>
 <%= link_to 'New Order', new_order_path, class: "btn btn-default" %>
 </div>

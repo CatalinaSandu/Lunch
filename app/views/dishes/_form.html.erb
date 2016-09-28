@@ -29,7 +29,7 @@
 
 <div class="form-group">
   <%= f.label :menu_id %><br>
-  <%= f.select :menu_id, options_from_collection_for_select(Menu.all, :id, :title),
+  <%= f.select :menu_id, options_from_collection_for_select(Menu.where(menu_status: "OPEN"), :id, :title),
   {prompt: "Choose one"}%>
 </div>
 

@@ -1,31 +1,37 @@
 <%= form_for(@menu) do |f| %>
-  <% if @menu.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@menu.errors.count, "error") %> prohibited this menu from being saved:</h2>
+<% if @menu.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(@menu.errors.count, "error") %> prohibited this menu from being saved:</h2>
 
-      <ul>
-      <% @menu.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <ul>
+    <% @menu.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
 
-  <div class="form-group"">
-    <%= f.label :date %><br>
-    <%= f.date_select :date %>
-  </div>
+<div class="form-group"">
+  <%= f.label :date %><br>
+  <%= f.date_select :date %>
+</div>
 
-  <div class="form-group">
-    <%= f.label :title %><br>
-    <%= f.text_field :title %>
-  </div>
+<div class="form-group">
+  <%= f.label :title %><br>
+  <%= f.text_field :title %>
+</div>
 
-  <div class="form-group">
-    <%= f.label :restaurant_id %><br>
-    <%= f.select :restaurant_id, options_from_collection_for_select(Restaurant.all, :id, :name)%>
-  </div>
-  <div class="actions">
-    <%= f.submit class: "btn btn-default" %>
-  </div>
+<div class="form-group">
+  <%= f.label :restaurant_id %><br>
+  <%= f.select :restaurant_id, options_from_collection_for_select(Restaurant.all, :id, :name)%>
+</div>
+
+<div class="form-group">
+  <%= f.label :menu_status %><br>
+  <%= f.select :menu_status, ["OPEN", "CLOSED"] %>
+</div>
+
+<div class="actions">
+  <%= f.submit class: "btn btn-default" %>
+</div>
 <% end %>

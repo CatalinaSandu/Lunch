@@ -13,6 +13,13 @@
   <strong>Restaurant:</strong>
   <%= @menu.restaurant.name %>
 </p>
+
+<p>
+  <strong>Menu status:</strong>
+  <%= @menu.menu_status %>
+</p>
+
+
 <% if current_user.admin? %>
 <%= link_to 'Edit', edit_menu_path(@menu) %> |
 <% end %>

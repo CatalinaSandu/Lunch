@@ -1,10 +1,12 @@
 <div class="container">
 
-<h1>Listing Orders</h1>
+<h1>All Orders</h1>
 
 <table class="table table-striped">
   <thead>
     <tr>
+      <th>Date</th>
+      <th>User</th>
       <th>Dish1</th>
       <th>Dish2</th>
       <th>Dessert</th>
@@ -16,6 +18,8 @@
   <tbody>
     <% @orders.each do |order| %>
     <tr>
+      <th><%= order.created_at.to_date %></th>
+      <td><%= User.find_by_id(order.user_id).name %></td>
       <td><%= order.dish1_title %></td>
       <td><%= order.dish2_title %></td>
       <td><%= order.dessert_title %></td>
