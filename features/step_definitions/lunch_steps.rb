@@ -1,7 +1,7 @@
 def create_user
   @user = User.new({:name => "Sandu Catalina", :email =>"sanducatalina10@yahoo.com", :password => "catalina",
    :password_confirmation => "catalina", :phone => "1234567890", :address => "Dumbraveni", :role => 1})
-   @user.save
+  @user.save
 end
 
 def sign_in
@@ -23,10 +23,6 @@ When /^I sign in with valid data$/ do
   sign_in
 end
 
-Then /^show me the page$/ do
-  save_and_open_page
-end
-
 Then /^I see a successful sign in message$/ do
   page.should have_content "Signed in successfully."
 end
@@ -41,12 +37,26 @@ Then /^I should be signed in$/ do
   page.should_not have_content "Login"
 end
 
+Then /^I should be signed out$/ do
+  page.should have_content "Sign up"
+  page.should have_content "Login"
+  page.should_not have_content "Logout"
+end
+
 Given /^I have no menus$/ do
   Menu.delete_all
 end
 
+Given /^I have no restaurant$/ do
+  Restaurant.delete_all
+end
+
 Given /^I go to the list of menus$/ do
   visit menus_path
+end
+
+Given /^I go to the list of restaurants$/ do
+  visit restaurants_path
 end
 
 When(/^I follow "([^"]*)"$/) do |link|
@@ -57,6 +67,14 @@ When(/^I fill in "([^"]*)" with "([^"]*)"$/) do |field, content|
   page.fill_in field, with: content
 end
 
+When(/^I select "(.*)" from "(.*)"$/) do |value, field|
+  select(value, :from => field)
+end
+
+Then /^show me the page$/ do
+  save_and_open_page
+end
+
 When(/^I press "([^"]*)"$/) do |button|
 click_button button
 end
@@ -65,6 +83,18 @@ Then /^I should see "([^"]*)"$/ do |text|
 page.should have_content text
 end
 
-Then(/^I should have (\d+) article$/) do |count|
+Then(/^I should have (\d+) menu$/) do |count|
   Menu.count.should eql count.to_i
+end
+
+Given /^I have orders titled (.+)$/ do |titles|
+  Order.create!(order_status: title)
+end
+
+When /^I go to the list of orders$/ do
+  visit orders_path
+end
+
+Then(/^I should have (\d+) order$/) do |count|
+  Order.count.should eql count.to_i
 end

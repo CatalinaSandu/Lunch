@@ -11,7 +11,7 @@
 
 <p>
   <strong>Restaurant:</strong>
-  <%= @menu.restaurant %>
+  <%= @menu.restaurant.name %>
 </p>
 <% if current_user.admin? %>
 <%= link_to 'Edit', edit_menu_path(@menu) %> |
