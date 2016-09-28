@@ -31,8 +31,8 @@ module API
 
         get "history", serializer: Menu2Serializer do
 
-         menus = Menu.all
-         return menus
+         menus = Menu.order("date DESC").all
+          return menus
 
        end
 
