@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   before_save :set_expiration
 
   devise :database_authenticatable, :async, :registerable,
-  :recoverable, :rememberable, :trackable, :validatable
+  :recoverable, :rememberable, :trackable, :validatable, :omniauthable
 
   #do_not_validate_attachment_file_type :image
   has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100#" }, :default_url => "/images/:style/missing.png"

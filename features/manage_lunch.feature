@@ -37,6 +37,7 @@ Feature: Manage lunch
     Then I see a successful sign in message
     When I return to the site
     Then I should be signed in
+    Then show me the page
     Given I have orders titled Pending
     When I go to the list of orders
     Then I follow "Destroy"

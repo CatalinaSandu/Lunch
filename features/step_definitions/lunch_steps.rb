@@ -87,8 +87,8 @@ Then(/^I should have (\d+) menu$/) do |count|
   Menu.count.should eql count.to_i
 end
 
-Given /^I have orders titled (.+)$/ do |titles|
-  Order.create!(order_status: title)
+Given /^I have orders titled (.+)$/ do |title|
+  Order.create!(order_status: title, user_id: @user.id)
 end
 
 When /^I go to the list of orders$/ do

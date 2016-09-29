@@ -14,54 +14,34 @@ module API
         get :check_code do
           order_code = params[:order_code].split('-')
           order_id = order_code[0]
-          menu_id = order_code[1]
+          dish1_id = order_code[1]
 
           if order_id.blank?
             {error_code: 401, error_message:"No order code."}
-          elsif menu_id.blank?
-            {error_code: 401, error_message:"No menu id."}
+          elsif dish1_id.blank?
+            {error_code: 401, error_message:"No order id."}
           end
           begin
-            order = Order.where(id: order_id).first
+            order = Order.where(id: order_id, dish1_id: dish1_id).first
           rescue
             order = nil
           end
-          begin
-            menu = Menu.where(id: menu_id).first
-          rescue
-            menu = nil
-          end
           if order.nil?
             {error_code: 401, error_message:"No order."}
-          elsif menu.nil?
-            {error_code: 401, error_message:"No menu."}
           else
             { order_id: order.id,
-              title: menu.title,
-              first_dish: menu.dishes.first.dish_title,
-              second_dish: menu.dishes.second.dish_title,
-              dessert: menu.dishes.last.dish_title,
+              first_dish: order.dish1_title,
+              second_dish: order.dish2_title,
+              dessert: order.dessert_title,
               order_status: "Send"}
             end
 
           end
 
-
-
           desc "Return all orders"
           get "history" do
             Order.all
           end
-
-          # desc "Return a order"
-          # params do
-          #   requires :id, type: String, desc: "ID of the
-          #   order"
-          # end
-
-          # get ":id", root: "order" do
-          #   Order.where(id: permitted_params[:id]).first!
-          # end
 
           desc "Create new order"
           params do
