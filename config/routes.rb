@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :menus
   resources :restaurants
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
-  devise_for :users, :controllers => { :registrations => "register", omniauth_callbacks: 'omniauth_callbacks' }
+  devise_for :users, :controllers => { :registrations => "register", omniauth_callbacks: 'users/omniauth_callbacks' }
   resources :users
 
   root 'menus#index'

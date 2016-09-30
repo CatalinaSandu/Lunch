@@ -33,14 +33,19 @@ module API
               first_dish: order.dish1_title,
               second_dish: order.dish2_title,
               dessert: order.dessert_title,
-              order_status: "Send"}
+              order_status: order.order_status }
             end
 
           end
 
           desc "Return all orders"
-          get "history" do
-            Order.all
+          params do
+            requires :date, type: Date
+          end
+          get "history", serializer: Order2Serializer  do
+            date = params[:date]
+            orders = Order.where(:created_at => DateTime.parse(date.to_s).beginning_of_day..DateTime.parse(date.to_s).end_of_day)
+            return orders
           end
 
           desc "Create new order"
@@ -71,6 +76,8 @@ module API
               {error_code: 401, error_message:"No user found"}
             elsif token.blank?
               {error_code: 401, error_message:"Not authorized"}
+            elsif order.nil?
+              {error_code: 401, error_message: "Not auhorized"}
             else
               order = Order.create!({
                 user_id: user.id,
@@ -115,31 +122,15 @@ module API
               {error_code: 401, error_message:"No user found"}
             else
               order.rating = rating
+              order.order_status = "Finished"
               order.save
-              {success_message: "Rating save"}
+
+              {
+                order_status: "Finished"
+              }
             end
           end
 
-          # desc "history order"
-          # params do
-          #   requires :token, type: String
-          # end
-
-          # get "history" do
-
-          #   token = params[:token]
-          #   begin
-          #     user = User.find_by_authentication_token(params[:token])
-          #   rescue
-          #     user = nil
-          #   end
-          #   if token.blank?
-          #     {error_code: 401, error_message:"Not authorized."}
-          #   else
-          #     order = Order.where(user_id: user.id)
-
-          #   end
-          # end
         end
       end
     end
