@@ -62,22 +62,24 @@ module API
             dish2_id = params[:dish2_id]
             dessert_id = params[:dessert_id]
 
+            menu = Menu.where("DATE(date) = ? ", Date.today)
+
             begin
               user = User.where(authentication_token: token).first!
             rescue
               user = nil
             end
             begin
-              order = Order.where(dish1_id: dish1_id, dish2_id: dish2_id, dessert_id: dessert_id).first!
+              dish1 = Dish.where(id: dish1_id)
             rescue
-              order = nil
+              dish1 = nil
             end
             if user.nil?
               {error_code: 401, error_message:"No user found"}
             elsif token.blank?
               {error_code: 401, error_message:"Not authorized"}
-            elsif order.nil?
-              {error_code: 401, error_message: "Not auhorized"}
+            elsif dish1.nil?
+              {error_code: 401, error_message: "Invalid dish1_id"}
             else
               order = Order.create!({
                 user_id: user.id,
