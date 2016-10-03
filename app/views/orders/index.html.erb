@@ -16,6 +16,7 @@
   </thead>
 
   <tbody>
+  <% @orders = @orders.order("created_at DESC").all %>
     <% @orders.each do |order| %>
     <tr>
       <th><%= order.created_at.to_date %></th>

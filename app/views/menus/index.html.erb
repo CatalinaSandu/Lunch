@@ -13,7 +13,7 @@
   </thead>
 
   <tbody>
-     <% @menus = @menus.sort_by(&:date) %>
+     <% @menus = @menus.order("date DESC").all %>
     <% @menus.each do |menu| %>
     <tr>
       <td><%= menu.date %></td>

@@ -14,54 +14,39 @@ module API
         get :check_code do
           order_code = params[:order_code].split('-')
           order_id = order_code[0]
-          menu_id = order_code[1]
+          dish1_id = order_code[1]
 
           if order_id.blank?
             {error_code: 401, error_message:"No order code."}
-          elsif menu_id.blank?
-            {error_code: 401, error_message:"No menu id."}
+          elsif dish1_id.blank?
+            {error_code: 401, error_message:"No order id."}
           end
           begin
-            order = Order.where(id: order_id).first
+            order = Order.where(id: order_id, dish1_id: dish1_id).first
           rescue
             order = nil
           end
-          begin
-            menu = Menu.where(id: menu_id).first
-          rescue
-            menu = nil
-          end
           if order.nil?
             {error_code: 401, error_message:"No order."}
-          elsif menu.nil?
-            {error_code: 401, error_message:"No menu."}
           else
             { order_id: order.id,
-              title: menu.title,
-              first_dish: menu.dishes.first.dish_title,
-              second_dish: menu.dishes.second.dish_title,
-              dessert: menu.dishes.last.dish_title,
-              order_status: "Send"}
+              first_dish: order.dish1_title,
+              second_dish: order.dish2_title,
+              dessert: order.dessert_title,
+              order_status: order.order_status }
             end
 
           end
 
-
-
           desc "Return all orders"
-          get "history" do
-            Order.all
+          params do
+            requires :date, type: Date
           end
-
-          # desc "Return a order"
-          # params do
-          #   requires :id, type: String, desc: "ID of the
-          #   order"
-          # end
-
-          # get ":id", root: "order" do
-          #   Order.where(id: permitted_params[:id]).first!
-          # end
+          get "history", serializer: Order2Serializer  do
+            date = params[:date]
+            orders = Order.where(:created_at => DateTime.parse(date.to_s).beginning_of_day..DateTime.parse(date.to_s).end_of_day)
+            return orders
+          end
 
           desc "Create new order"
           params do
@@ -77,20 +62,24 @@ module API
             dish2_id = params[:dish2_id]
             dessert_id = params[:dessert_id]
 
+            menu = Menu.where("DATE(date) = ? ", Date.today)
+
             begin
               user = User.where(authentication_token: token).first!
             rescue
               user = nil
             end
             begin
-              order = Order.where(dish1_id: dish1_id, dish2_id: dish2_id, dessert_id: dessert_id).first!
+              dish1 = Dish.where(id: dish1_id)
             rescue
-              order = nil
+              dish1 = nil
             end
             if user.nil?
               {error_code: 401, error_message:"No user found"}
             elsif token.blank?
               {error_code: 401, error_message:"Not authorized"}
+            elsif dish1.nil?
+              {error_code: 401, error_message: "Invalid dish1_id"}
             else
               order = Order.create!({
                 user_id: user.id,
@@ -135,31 +124,15 @@ module API
               {error_code: 401, error_message:"No user found"}
             else
               order.rating = rating
+              order.order_status = "Finished"
               order.save
-              {success_message: "Rating save"}
+
+              {
+                order_status: "Finished"
+              }
             end
           end
 
-          # desc "history order"
-          # params do
-          #   requires :token, type: String
-          # end
-
-          # get "history" do
-
-          #   token = params[:token]
-          #   begin
-          #     user = User.find_by_authentication_token(params[:token])
-          #   rescue
-          #     user = nil
-          #   end
-          #   if token.blank?
-          #     {error_code: 401, error_message:"Not authorized."}
-          #   else
-          #     order = Order.where(user_id: user.id)
-
-          #   end
-          # end
         end
       end
     end

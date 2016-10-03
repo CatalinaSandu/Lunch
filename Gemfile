@@ -38,7 +38,8 @@ gem "daemons"
 gem "paperclip", "~> 5.0.0"
 gem 'hashie-forbidden_attributes'
 gem 'launchy', '~> 2.4', '>= 2.4.3'
-
+gem 'omniauth'
+gem 'omniauth-facebook'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

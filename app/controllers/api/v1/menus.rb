@@ -5,31 +5,38 @@ module API
 
       resource :menus do
 
-        desc "Return all menus by current day"
+        desc "Return all menus"
         params do
           requires :token, type: String
+          requires :date, type: Date
         end
         get "", root: :menus do
           token = params[:token]
+          date = params[:date]
           begin
             user = User.where(authentication_token: token).first!
           rescue
             user = nil
           end
           if user
-            menus = Menu.where("DATE(date) = ?", Date.today)
+            menus = Menu.where("DATE(date) = ?", date)
             return menus
+
           else
             {error_code: 401, error_message:"Not authorized."}
           end
         end
 
-        desc "Return all menus"
-        get "history" do
-          menus = Menu.all
+        desc "Return a menus history"
+
+        get "history", serializer: Menu2Serializer do
+
+         menus = Menu.order("date DESC").all
           return menus
-        end
-      end
-    end
-  end
+
+       end
+
+     end
+   end
+ end
 end
