@@ -1,8 +1,9 @@
 class Users::SessionsController < Devise::SessionsController
-   def create
-    super do |resource|
-      BackgroundWorker.trigger(resource)
-    end
+
+  def destroy
+    super
+    session[:fb_token] = nil
+    session.clear
   end
 
 end
