@@ -63,8 +63,29 @@ module API
        end
      end
 
-     desc "Status token"
+     desc "Device token pentru user"
      params do
+      requires :device_token, type: String
+      requires :token, type: String
+    end
+
+    post 'device' do
+      device_token = params[:device_token]
+      token = params[:token]
+
+      user = User.where(authentication_token: permitted_params[:token]).first!
+      if user.nil?
+        error!({error_code: 404, error_message: 'NO user.'}, 401)
+        return
+      end
+
+      user.device_token = device_token
+      user.save
+      { success_message: "Device token saved"}
+    end
+
+    desc "Status token"
+    params do
       requires :token, type: String
     end
 
@@ -87,19 +108,19 @@ module API
     get 'profile' do
       user = User.find_by_authentication_token(permitted_params[:token])
       { avatar: "http://#{request.host_with_port}#{user.avatar.url}",
-        name: user.name,
-        email: user.email,
-        address: user.address,
-        phone: user.phone}
+      name: user.name,
+      email: user.email,
+      address: user.address,
+      phone: user.phone}
 
-      end
+    end
 
 
-      desc "Edit profile"
-      params do
-        requires :token, type: String
-        optional :avatar, :type => Rack::Multipart::UploadedFile
-        optional :name, type: String
+    desc "Edit profile"
+    params do
+      requires :token, type: String
+      optional :avatar, :type => Rack::Multipart::UploadedFile
+      optional :name, type: String
         #optional :email, type: String
         optional :phone, type: String
         optional :address, type: String

@@ -88,52 +88,52 @@ module API
                 dessert_id: dessert_id,
                 order_status: "Pending"})
 
-              UserMailer.delay.new_order(order)
+                UserMailer.delay.new_order(order)
+                {success_message: "Order created"}
 
-              {success_message: "Order created"}
+              end
             end
+
+
+            desc "create rating"
+            params do
+              requires :rating, type: Integer
+              requires :order_id, type: String
+              requires :token, type: String
+            end
+
+            post "rating" do
+              rating = params[:rating]
+              order_id = params[:order_id]
+              token = params[:token]
+              begin
+                user = User.where(authentication_token: token).first!
+              rescue
+                user = nil
+              end
+              begin
+                order = Order.where(id: order_id).first!
+              rescue
+                order = nil
+              end
+              if token.blank?
+                {error_code: 401, error_message:"Not authorized."}
+              elsif order_id.blank?
+                {error_code: 401, error_message:"No order choosen."}
+              elsif user.nil?
+                {error_code: 401, error_message:"No user found"}
+              else
+                order.rating = rating
+                order.order_status = "Finished"
+                order.save
+
+                {
+                  order_status: "Finished"
+                }
+              end
+            end
+
           end
-
-
-          desc "create rating"
-          params do
-            requires :rating, type: Integer
-            requires :order_id, type: String
-            requires :token, type: String
-          end
-
-          post "rating" do
-            rating = params[:rating]
-            order_id = params[:order_id]
-            token = params[:token]
-            begin
-              user = User.where(authentication_token: token).first!
-            rescue
-              user = nil
-            end
-            begin
-              order = Order.where(id: order_id).first!
-            rescue
-              order = nil
-            end
-            if token.blank?
-              {error_code: 401, error_message:"Not authorized."}
-            elsif order_id.blank?
-              {error_code: 401, error_message:"No order choosen."}
-            elsif user.nil?
-              {error_code: 401, error_message:"No user found"}
-            else
-              order.rating = rating
-              order.order_status = "Finished"
-              order.save
-
-              {
-                order_status: "Finished"
-              }
-            end
-          end
-
         end
       end
     end
-  end

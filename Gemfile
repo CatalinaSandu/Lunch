@@ -40,6 +40,8 @@ gem 'hashie-forbidden_attributes'
 gem 'launchy', '~> 2.4', '>= 2.4.3'
 gem 'omniauth'
 gem 'omniauth-facebook'
+gem 'one_signal', '~> 1.2'
+gem 'dotenv-rails', :groups => [:development, :test]
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
