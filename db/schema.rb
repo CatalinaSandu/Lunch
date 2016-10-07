@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160930123346) do
+ActiveRecord::Schema.define(version: 20161007064319) do
 
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer  "priority",   default: 0, null: false
@@ -42,16 +42,6 @@ ActiveRecord::Schema.define(version: 20160930123346) do
   end
 
   add_index "dishes", ["menu_id"], name: "index_dishes_on_menu_id"
-
-  create_table "identities", force: :cascade do |t|
-    t.integer  "user_id"
-    t.string   "provider"
-    t.string   "uid"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "identities", ["user_id"], name: "index_identities_on_user_id"
 
   create_table "menus", force: :cascade do |t|
     t.string   "title"
@@ -110,6 +100,7 @@ ActiveRecord::Schema.define(version: 20160930123346) do
     t.datetime "expires_at"
     t.string   "provider"
     t.string   "uid"
+    t.string   "device_token"
   end
 
   add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", unique: true

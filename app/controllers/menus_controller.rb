@@ -34,6 +34,7 @@ class MenusController < ApplicationController
         format.html { render :new }
         format.json { render json: @menu.errors, status: :unprocessable_entity }
       end
+      one_signal_push_notification(current_user.device_token, "New #{@menu.title} {for #{@menu.date} was added!")
     end
   end
 
@@ -47,6 +48,10 @@ class MenusController < ApplicationController
       else
         format.html { render :edit }
         format.json { render json: @menu.errors, status: :unprocessable_entity }
+      end
+
+      if @menu.menu_status = "CLOSED"
+        one_signal_push_notification(current_user.device_token, "#{@menu.title} for today is CLOSED. Orders sent to restaurant.")
       end
     end
   end
@@ -71,4 +76,4 @@ class MenusController < ApplicationController
     def menu_params
       params.require(:menu).permit(:title, :date, :restaurant_id, :menu_status)
     end
-end
+  end
